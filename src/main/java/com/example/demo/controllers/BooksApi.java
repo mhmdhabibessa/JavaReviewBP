@@ -6,11 +6,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.demo.models.Book;
 import com.example.demo.services.BookService;
@@ -72,5 +74,24 @@ public class BooksApi {
     public String destroy(@PathVariable("id") Long id) {
         bookService.deleteBook(id);
         return "redirect:/";
+    }
+    
+    @PostMapping("/books/search")
+    public String searchBooks(@RequestParam(name = "query", required = false) String query, 
+    		@ModelAttribute("book") Book book,
+    		Model model) {
+    	
+    	
+        List<Book> searchResults;
+
+        if (query != null && !query.isEmpty()) {
+            // Perform a search based on the query
+            searchResults = bookService.searchBooks(query);
+        } else {
+            // If the query is empty, return all books
+            searchResults = bookService.allBooks();
+        }
+        model.addAttribute("books", searchResults);
+        return "index.jsp"; // Replace with the actual name of your JSP view
     }
 }

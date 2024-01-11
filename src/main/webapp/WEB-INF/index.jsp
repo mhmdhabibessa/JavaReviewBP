@@ -38,9 +38,23 @@
       <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure, asperiores provident ea eaque quis omnis adipisci in exercitationem necessitatibus dolorem.</div>
       <div class="tab-pane fade" id="disabled" role="tabpanel" aria-labelledby="disabled-tab">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Suscipit rem accusamus officia quia eos ducimus consequuntur! Impedit aliquid vero suscipit.</div>
     </div>
+    
   </div>
+  
 </div>
+
 	</div>
+	  <div class="col-md-5 mx-auto m-4">
+        <form action="/books/search" method="post" modelAttribute="books">
+    <div class="input-group">
+        <input class="form-control border-end-0 border rounded-pill" type="search" name="query" placeholder="Search" />
+        <span class="input-group-append">
+            <button type="submit" class="btn btn-primary">Search</button>
+        </span>
+    </div>
+</form>
+  </div>
+        
 <table id="customers">
 	  <tr>
 	    <th>Title Book</th>
