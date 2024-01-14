@@ -24,7 +24,7 @@ public class UserController {
 		
 	@RequestMapping("/login_register")
 	public String index(@ModelAttribute("user") User user, Model model) {
-		String password = "user_password";
+		String password = "123123213123213";
         String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
 
         System.out.println("Original Password: " + password);
@@ -35,17 +35,23 @@ public class UserController {
 	}
 	
     @PostMapping("/register")
-    public String register(@Valid @ModelAttribute("newUser") User newUser,BindingResult result, Model model, HttpSession session) {
+    public String register(@Valid @ModelAttribute("newUser") User newUser,
+    		BindingResult result, 
+    		Model model, 
+    		HttpSession session) {
         User regUser = userService.register(newUser, result);
         if (result.hasErrors()) {
             model.addAttribute("newLogin", new LoginUser());
             return "user/login.jsp";
         }
         session.setAttribute("user_id", regUser.getId());
-        return "redirect:/welcome";
+        return "redirect:/login_register";
     }
     @PostMapping("/login")
-    public String login(@Valid @ModelAttribute("newLogin") LoginUser newLogin,BindingResult result, Model model, HttpSession session) {
+    public String login(@Valid @ModelAttribute("newLogin") LoginUser newLogin,
+    		BindingResult result, 
+    		Model model, 
+    		HttpSession session) {
         User logUser = userService.login(newLogin, result);
         if (result.hasErrors()) {
             model.addAttribute("newUser", new User());
